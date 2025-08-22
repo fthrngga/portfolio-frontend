@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // PENTING: Ganti URL ini dengan URL backend Render Anda saat deploy
-    const API_BASE_URL = 'https://my-portfolio-api-a3id.onrender.com'; 
+    const API_BASE_URL = 'https://my-portfolio-api-a3id.onrender.com/api'; 
 
     const fetchProfile = async () => {
         try {
