@@ -1,31 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF--8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Portfolio</title>
+    <title>Fathur Rangga - Backend-Focused Engineer</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Source+Code+Pro&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 id="profile-name"></h1>
-        <p id="profile-title"></p>
+
+    <header class="hero">
+        <div class="container">
+            <div id="profile-data">
+                <div class="skeleton skeleton-title"></div>
+                <div class="skeleton skeleton-text"></div>
+            </div>
+            <div class="stats">
+                <p>Live Visitors:</p>
+                <span id="visitor-count" class="live-indicator">0</span>
+            </div>
+        </div>
     </header>
-    <main>
+
+    <main class="container">
         <section id="projects">
-            <h2>Proyek Unggulan</h2>
-            <div id="projects-list"></div>
+            <h2>Proyek Unggulan <span class="api-badge">Live from API</span></h2>
+            <div id="projects-grid">
+                <div class="card skeleton"></div>
+                <div class="card skeleton"></div>
+                <div class="card skeleton"></div>
+            </div>
         </section>
+
+        <section id="terminal-showcase">
+            <h2>Interactive API Terminal</h2>
+            <p>Bicaralah langsung dengan backend saya. Coba ketik `help` lalu Enter.</p>
+            <div class="terminal-window">
+                <div class="terminal-header">
+                    <div class="buttons">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                    </div>
+                    <span>/bin/bash -- API Endpoint: /api/terminal</span>
+                </div>
+                <div id="terminal-body" class="terminal-body">
+                    <div id="terminal-output"></div>
+                    <div class="terminal-prompt">
+                        <span class="prompt-user">user@fathur.dev:~$</span>
+                        <input type="text" id="terminal-input" class="terminal-input" autofocus>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="contact">
             <h2>Hubungi Saya</h2>
             <form id="contact-form">
-                <button type="submit">Kirim</button>
+                <input type="text" name="name" placeholder="Nama Anda" required>
+                <input type="email" name="email" placeholder="Email Anda" required>
+                <textarea name="message_body" rows="5" placeholder="Pesan Anda" required></textarea>
+                <button type="submit">Kirim Pesan</button>
+                <p id="form-status"></p>
             </form>
         </section>
     </main>
-    <footer>
-        <p>Total Pengunjung: <span id="visitor-count">0</span></p>
+
+    <footer class="site-footer">
+        <p>&copy; 2025 Fathur Rangga. Dibangun dengan Vanilla JS & Flask API.</p>
     </footer>
+
     <script src="js/app.js"></script>
 </body>
 </html>
