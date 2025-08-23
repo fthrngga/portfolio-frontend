@@ -1,7 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const API_BASE_URL = 'https://my-portfolio-api-a3id.onrender.com/api'; // Pastikan URL ini benar
-
     // --- Elemen DOM ---
+    const heroTitle = document.getElementById('hero-title');
+    const profileSubtitle = document.getElementById('profile-subtitle');
+    // ... (semua elemen DOM lainnya dari versi sebelumnya) ...
     const profileContainer = document.getElementById('profile-data');
     const projectsGrid = document.getElementById('projects-grid');
     const visitorCountSpan = document.getElementById('visitor-count');
@@ -11,8 +12,41 @@ document.addEventListener('DOMContentLoaded', () => {
     const monitorToggleBtn = document.getElementById('monitor-toggle-btn');
     const apiMonitor = document.getElementById('api-monitor');
 
-    // --- API Monitor Logic ---
-    const logApiCall = (method, endpoint, status, duration) => {
+    const API_BASE_URL = 'https://my-portfolio-api-a3id.onrender.com/api';
+
+
+    // --- Efek Mengetik untuk Hero ---
+    const typeWriter = (element, text, speed = 100) => {
+        let i = 0;
+        element.innerHTML = '<span class="cursor">|</span>';
+        const typing = () => {
+            if (i < text.length) {
+                element.innerHTML = text.substring(0, i + 1) + '<span class="cursor">|</span>';
+                i++;
+                setTimeout(typing, speed);
+            } else {
+                 element.innerHTML = text + '<span class="cursor">|</span>';
+            }
+        };
+        typing();
+    };
+
+    // --- Animasi Fade-in saat Scroll ---
+    const fadeInObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+        fadeInObserver.observe(el);
+    });
+    
+    // --- API Monitor & Fetch Wrapper (Sama seperti sebelumnya) ---
+    // ... (salin dan paste seluruh bagian API Monitor & Fetch Wrapper dari kode JS Anda sebelumnya) ...
+     const logApiCall = (method, endpoint, status, duration) => {
         const logEntry = document.createElement('div');
         logEntry.className = 'log-entry';
         
@@ -62,16 +96,18 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
 
-    // --- Fungsi Fetch Data (Menggunakan Wrapper Baru) ---
+    // --- Fungsi Fetch Data (Dimodifikasi untuk mengisi elemen baru) ---
     const fetchProfile = async () => {
         try {
             const data = await apiFetch('GET', '/profile');
-            profileContainer.innerHTML = `<h1>${data.name}</h1><p>${data.title}</p>`;
+            typeWriter(heroTitle, data.name); // Gunakan efek mengetik
+            profileSubtitle.textContent = data.title;
         } catch (error) {
-            profileContainer.innerHTML = '<p>Gagal memuat profil.</p>';
+            heroTitle.textContent = "Gagal memuat data.";
         }
     };
 
+    // ... (fungsi fetchProjects, fetchVisitorCount, dan terminal tetap sama seperti sebelumnya) ...
     const fetchProjects = async () => {
         try {
             const projects = await apiFetch('GET', '/projects');
@@ -127,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Panggil semua fungsi
+    // Panggil fungsi inisialisasi
     fetchProfile();
     fetchProjects();
     fetchVisitorCount();
